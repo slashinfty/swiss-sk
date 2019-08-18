@@ -55,7 +55,8 @@
             <input type="text" id="player-second" size="28 "/></p>
             <p><button id="addPlayer">Add Player</button></p>
             <p><button id="startTournament" disabled>Start Tournament</button></p>
-            <p><label for="numberOfRounds">Rounds: </label>
+            <p><label for="singleElimOption">Single elimination for Swiss? </label><input type="checkbox" id="singleElimOption" checked></p>
+            <p><label for="numberOfRounds">Number of Swiss Rounds: </label>
             <select name="numberOfRounds" id="numberOfRounds">
               <option value="3" selected="selected">3</option>
               <option value="4">4</option>
@@ -65,7 +66,7 @@
               <option value="8">8</option>
               <option value="9">9</option>
             </select></p>
-            <p><label for="numberOfTop">Cut to: </label>
+            <p><label for="numberOfTop">After Swiss rounds, cut to: </label>
             <select name="numberOfTop" id="numberOfTop">
               <option value="0" selected="selected">No Cut</option>
               <option value="2">Top 2</option>
@@ -73,7 +74,13 @@
               <option value="8">Top 8</option>
               <option value="16">Top 16</option>
             </select></p>
-            <p><label for="singleElimOption">Single Elimination? </label><input type="checkbox" id="singleElimOption" checked></p>
+            <p><label for="bestOfNumber">Matches are best of: </label>
+            <select name="bestOfNumber" id="bestOfNumber">
+              <option value="1">1</option>
+              <option value="3" selected="selected">3</option>
+              <option value="5">5</option>
+              <option value="7">7</option>
+            </select></p>
             <p><label for="startingMatchNumber">Starting Match Number: </label>
             <input type="number" id="startingMatchNumber" value="1" style="width: 3em" /></p>
           </div>

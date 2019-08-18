@@ -3,6 +3,7 @@ var currentRound = 0;
 var numberOfRounds = 3;
 var singleElim = false;
 var cutToTop = 0;
+var bestOf = 3;
 
 //interface functions
 //create tournament button
@@ -25,6 +26,7 @@ $('#startTournament').click(function() {
   $('#startTournament').prop('disabled', true);
   $('#singleElimOption').prop('disabled', true);
   $('#addPlayer').prop('disabled', true);
+  bestOf = $('#bestOfNumber').val();
   createPairings();
   singleElim = $('#singleElimOption').prop('checked') === true ? true : false;
   $('#tabbed-interface').tabs('enable', 2);
@@ -40,6 +42,7 @@ $('#saveTournament').click(function() {
     currRound: currentRound,
     totalRounds: numberOfRounds,
     topX: cutToTop,
+    bestOfGames: bestOf,
     currID: playerIDCounter,
     startMatch: $('#startingMatchNumber').val()
   };
@@ -64,6 +67,7 @@ $('#loadFile').change(function() {
     numberOfRounds = header.totalRounds;
     playerIDCounter = header.currID;
     cutToTop = header.topX;
+    bestOf = header.bestOfGames;
     $('#numberOfTop').val(cutToTop);
     $('#numberOfRounds').val(numberOfRounds);
     $('#startingMatchNumber').val(header.startMatch);
@@ -91,6 +95,7 @@ $('#loadFile').change(function() {
     $('#saveTournament').prop('disabled', false);
     $('#loadTournament').prop('disabled', true);
     $('#tourney-info').accordion('option', 'active', false);
+    $('#bestOfNumber').val(bestOf);
     let activePlayers = players.filter(player => player.active === true);
     let playerFooterText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
     $('#playerTableFoot').text(playerFooterText);

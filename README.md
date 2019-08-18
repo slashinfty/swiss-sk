@@ -39,6 +39,7 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 
 ### Planned
 - Edit player name on player card
+- Separate display page for external screens
 - Hotkey for dropping players while inputting results
 - Edit matches after pairings
 - Add players late during round one

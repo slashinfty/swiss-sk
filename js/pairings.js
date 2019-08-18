@@ -106,8 +106,9 @@ $('#selectedMatchNumber').keyup(function(e) {
 //manual entry methods
 $('#playerOneWins').keyup(function(e) {
   if (e.keyCode === 13 && document.getElementById("matchIDHolder").dataset.match != '0') {
+    let verify = new RegExp('^[0-' + Math.ceil(bestOf / 2).toString() + ']$');
     if ($('#playerOneWins').val() === '' || $('#playerOneWins').val() === undefined) return;
-    else if (!(/^[0-2]$/.test($('#playerOneWins').val()))) {
+    else if (!(verify.test($('#playerOneWins').val()))) {
       $('#playerOneWins').val('');
       return;
     } else $('#playerTwoWins').focus();
@@ -116,7 +117,8 @@ $('#playerOneWins').keyup(function(e) {
 
 $('#playerTwoWins').keyup(function(e) {
   if (e.keyCode === 13 && document.getElementById("matchIDHolder").dataset.match != '0') {
-    if (!(/^[0-2]$/.test($('#playerTwoWins').val()))) {
+    let verify = new RegExp('^[0-' + Math.ceil(bestOf / 2).toString() + ']$');
+    if (!(verify.test($('#playerTwoWins').val()))) {
       $('#playerTwoWins').val('');
       return;
     }
@@ -141,7 +143,8 @@ $('#submitResult').click(function() {
   let numberDraws = $('#numberOfDraws').val();
   let draws = numberDraws === '' || numberDraws === undefined ? 0 : parseInt(numberDraws);
   if (pOneResult === '' || pOneResult === undefined || pTwoResult === '' || pTwoResult === undefined || document.getElementById("matchIDHolder").dataset.match == '0') return;
-  if (!(/^[0-2]$/.test(pOneResult)) || !(/^[0-2]$/.test(pTwoResult)) || !(/^[0-3]$/.test(draws))) {
+  let verify = new RegExp('^[0-' + Math.ceil(bestOf / 2).toString() + ']$');
+  if (!(verify.test(pOneResult)) || !(verify.test(pTwoResult)) || !(/^[0-3]$/.test(draws))) {
     $('#playerOneWins').val('');
     $('#playerTwoWins').val('');
     $('#numberOfDraws').val('');
@@ -230,6 +233,7 @@ $('#createNewRound').click(function() {
     $('#displayedRound').append('<option value="' + currentRound + '">' +
                              currentRound + '</option>').val(currentRound.toString());
     if (activePlayers.length === 2 || (currentRound === numberOfRounds && cutToTop === 0))  $('#createNewRound').text('End Tournament');
+    bestOf = $('#bestOfNumber').val();
   }
 });
 
