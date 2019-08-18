@@ -1,0 +1,127 @@
+body {
+  max-width: 920px;
+  margin: auto;
+  font-family: sans-serif;
+  background-color: lightgray;
+}
+
+input[type="file"] {
+  display: block;
+  height: 0;
+  width: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -mox-appearance: textfield;
+}
+
+#tag {
+  color: gray;
+}
+
+#tag a {
+  color: gray;
+  text-decoration: none;
+}
+
+#tag a:hover {
+  color: black;
+}
+
+.tab-container {
+  height: 650px;
+}
+
+.fbox {
+  display: flex;
+}
+
+.onebox {
+  flex: 1;
+}
+
+.twobox {
+  flex: 2;
+}
+
+.threebox {
+  flex: 3;
+}
+
+#tname {
+  align-self: center;
+  text-align: right;
+}
+
+.ui-tabs .ui-tabs-nav {
+  display: flex;
+}
+
+.ui-tabs .ui-tabs-nav li {
+  flex: 1;
+  display: flex;
+  white-space: normal;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+    flex: 1;
+    text-align: center;
+}
+
+#secondName {
+  display: none;
+}
+
+#players-table {
+  margin-top: 10px;
+  margin-right: -2px;
+}
+
+#pairings-table {
+  margin-top: 10px;
+}
+
+#standings-table {
+  margin-top: 10px;
+}
+
+.above-table {
+  align-items: center;
+}
+
+.alignr {
+  text-align: right;
+}
+
+.alignc {
+  text-align: center;
+}
+
+.players-half {
+  margin-right: -6px;
+  vertical-align: top;
+  width: 50%;
+  display: inline-block;
+}
+
+.pairings-left {
+  width: 33%;
+  margin-right: -4px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.pairings-right {
+  width: 66%;
+  display: inline-block
+}
+
+#standings-tab {
+  display: block;
+}

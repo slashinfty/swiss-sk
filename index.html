@@ -1,0 +1,138 @@
+<!doctype HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>swissSK</title>
+    <meta name="author" content="Matt Braddock">
+    <meta name="description" content="Swiss pairings tournament app">
+    <meta name="keywords" content="swiss, tournament, pairings, scorekeeping">
+    <link rel='icon' href='img/favicon.ico' type='image/x-icon'/ >
+    
+    <!-- CSS -->
+    <link href="css/index.css" rel="stylesheet">
+    <link href="js/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
+    <link href="js/tabulator-master/dist/css/tabulator.min.css" rel="stylesheet">
+    <link href="js/tabulator-master/dist/css/bootstrap/tabulator_bootstrap.min.css" rel="stylesheet">
+    
+    <!-- JS -->
+    <script src="js/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script src="js/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="js/tabulator-master/dist/js/tabulator.min.js"></script>
+  </head>
+  <body>
+    <div id="tag"><img src="img/header.png" style="padding-top: 25px;">v0.1 (alpha) | <a href="https://github.com/slashinfty/swiss-sk" target="_blank">source code</a> | <a href="https://github.com/slashinfty/swiss-sk/issues/new" target="_blank">report an issue</a></div>
+    <p id="subtitle">A scorekeeping tool for tournaments with Swiss pairings</p>
+    <div id="tourney-info">
+      <h3>Tournament Info</h3>
+      <div class="fbox">
+        <div class="onebox" id="nameRadios">
+          Player Naming Convention:
+          <label for="name-1">Alias for Name</label>
+          <input type="radio" name="name-set" class="name-set" id="name-1" checked="true">
+          <label for="name-2">First and Last Name</label>
+          <input type="radio" name="name-set" class="name-set" id="name-2">
+        </div>
+        <div class="twobox" id="tname">
+          <p><label for="tourney-name">Tournament Name: </label>
+          <input type="text" id="tourney-name" size="30" /></p>
+          <input type="file" id="loadFile" accept=".json" /><button id="saveTournament" disabled>Save</button>&nbsp;<button id="loadTournament">Load</button>&nbsp;<button id="createTournament">Create Tournament</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-container">
+      <div id="tabbed-interface">
+        <ul>
+          <li><a href="#players-tab">Players</a></li>
+          <li><a href="#pairings-tab">Pairings</a></li>
+          <li><a href="#standings-tab">Standings</a></li>
+        </ul>
+        <div id="players-tab">
+          <div id="playersDialog" title="" data-pid="0"></div>
+          <div class="players-half">
+            <p><label for="player-first">Name: </label>
+            <input type="text" id="player-first" size="28"/></p>
+            <p id="secondName"><label for="player-second">Last: </label>
+            <input type="text" id="player-second" size="28 "/></p>
+            <p><button id="addPlayer">Add Player</button></p>
+            <p><button id="startTournament" disabled>Start Tournament</button></p>
+            <p><label for="numberOfRounds">Rounds: </label>
+            <select name="numberOfRounds" id="numberOfRounds">
+              <option value="3" selected="selected">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select></p>
+            <p><label for="numberOfTop">Cut to: </label>
+            <select name="numberOfTop" id="numberOfTop">
+              <option value="0" selected="selected">No Cut</option>
+              <option value="2">Top 2</option>
+              <option value="4">Top 4</option>
+              <option value="8">Top 8</option>
+              <option value="16">Top 16</option>
+            </select></p>
+            <p><label for="singleElimOption">Single Elimination? </label><input type="checkbox" id="singleElimOption" checked></p>
+            <p><label for="startingMatchNumber">Starting Match Number: </label>
+            <input type="number" id="startingMatchNumber" value="1" style="width: 3em" /></p>
+          </div>
+          <div class="players-half">
+            <div class="fbox above-table">
+            <div class="twobox"><label for="playerTableFilter">Search: </label>
+            <input type="text" id="playerTableFilter" size="18" onkeyup="filterPlayersText()" /></div>
+            <div class="onebox alignr"><label for="filterDroppedPlayers">All</label>
+            <input type="checkbox" id="filterDroppedPlayers"></div>
+            </div>
+            <div id="players-table"></div>
+            <p class="alignr"><input type="file" id="importPlayersFile" accept=".json" /><button id="importPlayers">Import Players</button>&nbsp;<button id="exportPlayers" disabled>Export Players</button>&nbsp;<button id="printPlayers" disabled>Print Players</button></p>
+          </div>
+        </div>
+        <div id="pairings-tab">
+          <div class="pairings-left">
+            <div id="printPairingsDialog" title="Print Pairings">Choose the type of print.</div>
+            <p><label for="displayedRound">Round: </label>
+            <select name="displayedRound" id="displayedRound">
+              <option value="1" selected="selected">1</option>
+            </select></p>
+            <span id="matchIDHolder" data-match="0"><p><input type="number" id="selectedMatchNumber" style="width: 3em" />&nbsp;<label for="selectedMatchNumber">Match Number</label></p>
+            <p><input type="number" id="playerOneWins" style="width: 2em"/>&nbsp;<span id="playerOneAlias"></span></p>
+            <p><input type="number" id="playerTwoWins" style="width: 2em" />&nbsp;<span id="playerTwoAlias"></span></p>
+            <p><input type="number" id="numberOfDraws" style="width: 2em" />&nbsp;Draws</p></span>
+            <p ><input type="checkbox" id="dropPlayerOne"><label for="dropPlayerOne">Drop P1</label>&nbsp;<input type="checkbox" id="dropPlayerTwo"><label for="dropPlayerTwo">Drop P2</label></p>
+            <p><button id="submitResult">Enter Result</button>&nbsp;<button id="clearResult">Clear Result</button></p>
+            <p><button id="createNewRound" disabled>Create Next Round</button></p>
+          </div>
+          <div class="pairings-right">
+            <div class="fbox above-table">
+            <div class="twobox"><label for ="pairingsTableFilter">Search: </label>
+            <input type="text" id="pairingsTableFilter" size="26" onkeyup="filterPairingsText()" /></div>
+            <div class="onebox alignr"><label for="filterActivePairings">All Matches</label>
+            <input type="checkbox" id="filterActivePairings"></div>
+            </div>
+            <div id="pairings-table"></div>
+            <div class="alignr"><button id="printPairings" onclick="$('#printPairingsDialog').dialog('open')">Print Pairings</button></div>
+            <div id="pair-name-table" style="visibility: hidden !important"></div>
+            <!-- edit pairings button -->
+          </div>
+        </div>
+        <div id="standings-tab">
+          <div class="fbox">
+          <div class="onebox"><label for ="standingsTableFilter">Search: </label>
+          <input type="text" id="standingsTableFilter" size="30" onkeyup="filterStandings()" /></div>
+          <div class="onebox alignr"><button id="printStandings">Print Standings</button></div>
+          </div>
+          <div id="standings-table"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <script src="js/players.js"></script>
+    <script src="js/interface.js"></script>
+    <script src="js/event.js"></script>
+    <script src="js/pairings.js"></script>
+    <script src="js/standings.js"></script>
+  </body>
+</html>
