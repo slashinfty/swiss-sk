@@ -132,7 +132,7 @@ $('#importPlayersFile').change(function() {
     let importedPlayers = JSON.parse(reader.result);
     importedPlayers.forEach(p => {
       playerIDCounter++;
-      const newP = Player(p.alias);
+      const newP = new Player(p.alias);
       players.push(newP);
     });
     playersTable.setData(players);

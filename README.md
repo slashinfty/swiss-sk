@@ -25,9 +25,10 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 - Sort players by ID or name, and filter by ID or name
 - Toggle players by active/all
 - Suggests number of rounds (up to 9) and single elimination cut-off (from no cut to top 16)
+- Matches can be best of 1, 3, 5, or 7 (can change each round)
 - Run tournament as single elimination
 - Change the starting match number (can change each round)
-- Drop/undrop players by clicking on them
+- Drop/undrop players or change their name by clicking on them in players tab
 - Print pairings by match number or name
 - Filter pairings by match number or name
 - Toggle matches by active/all
@@ -38,7 +39,7 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 - Print standings
 
 ### Planned
-- Edit player name on player card
+- ~~Edit player name on player card~~ **implemented in alpha**
 - Separate display page for external screens
 - Hotkey for dropping players while inputting results
 - Edit matches after pairings

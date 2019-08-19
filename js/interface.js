@@ -25,6 +25,25 @@ $(function() {
   $('#playersDialog').dialog({
     autoOpen: false,
     buttons: {
+      "Change Name": () => {
+        let playerToChange = players.find(p => p.playerID == document.getElementById("playersDialog").dataset.pid);
+        playerToChange.alias = $('#newName').val();
+        $('#playersDialog').dialog('option', 'title', playerToChange.alias + ' - Player Card');
+        $('#playersDialog').html("Name: " + playerToChange.alias
+                                + "<br /> ID: " + playerToChange.playerID
+                                + "<br /> Match Points: " + playerToChange.matchPts
+                                + "<p><label for='newName'>New Name?</label><input type='text' id='newName' size='18'/></p>");
+        playersTable.setData(players);
+        if (currentRound > 0) {
+          let round = pairings.find(r => r.round == $('#displayedRound').val());
+          let match = round.pairings.find(m => (m.playerOne === playerToChange.playerID || m.playerTwo === playerToChange.playerID));
+          if (playerToChange.playerID === match.playerOne) match.playerOneName = playerToChange.alias;
+          else match.playerTwoName = playerToChange.alias;
+          standings.find(p => p.playerID == playerToChange.playerID).alias = playerToChange.alias;
+          pairingsTable.setData(round.pairings);
+          standingsTable.setData(standings);
+        }
+      },
       "Drop/Undrop Player": () => {
         let playerToDrop = players.find(player => player.playerID == document.getElementById("playersDialog").dataset.pid);
         if (currentRound === 0) {
@@ -76,7 +95,8 @@ var playersTable = new Tabulator("#players-table", {
     $('#playersDialog').dialog('option', 'title', data.alias + " - Player Card");
     $('#playersDialog').html("Name: " + data.alias
                             + "<br /> ID: " + data.playerID
-                            + "<br /> Match Points: " + data.matchPts);
+                            + "<br /> Match Points: " + data.matchPts
+                            + "<p><label for='newName'>New Name?</label><input type='text' id='newName' size='18'/></p>");
     $('#playersDialog').dialog('open');
   },
   initialSort: [
