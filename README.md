@@ -47,6 +47,7 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 - Delete round button
 - Print match result slips
 - Custom player ID
+- Import players as a .csv
 
 ## Starting a Tournament
 
