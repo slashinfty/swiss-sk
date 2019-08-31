@@ -10,10 +10,10 @@ class Player {
     this.byes = 0;
     this.opponents = []; //stores playerID of opp
     this.active = true;
-    this.matchWinPct = 0;
-    this.gameWinPct = 0;
-    this.oppMatchWinPct = 0;
-    this.oppGameWinPct = 0;
+    this.matchWinPct = '0';
+    this.gameWinPct = '0';
+    this.oppMatchWinPct = '0';
+    this.oppGameWinPct = '0';
   }
 }
 
@@ -215,17 +215,17 @@ function computeTiebreakers() {
     ogwp(player);
   });
   function mwp(p) {
-    if (p.matches === 0) p.matchWinPct = 33;
+    if (p.matches === 0) p.matchWinPct = (33.00).toFixed(2);
     else {
       let actual = Math.round(p.matchPts / (p.matches * 3) * 10000) / 100;
-      p.matchWinPct = actual < 33 ? 33 : actual; 
+      p.matchWinPct = actual < 33 ? (33.00).toFixed(2) : actual.toFixed(2); 
     }
   }
   function gwp(p) {
-    if (p.games === 0) p.gameWinPct = 33;
+    if (p.games === 0) p.gameWinPct = (33.00).toFixed(2);
     else {
       let actual = Math.round(p.gamePts / (p.games * 3) * 10000) / 100;
-      p.gameWinPct = actual < 33 ? 33 : actual;
+      p.gameWinPct = actual < 33 ? (33.00).toFixed(2) : actual.toFixed(2);
     }
   }
   function omwp(p) {
@@ -236,7 +236,7 @@ function computeTiebreakers() {
       num += actual < 0.33 ? 0.33 : actual;
     });
     let den = p.opponents.length;
-    p.oppMatchWinPct = den === 0 ? 33 : Math.round(num / den * 10000) / 100;
+    p.oppMatchWinPct = den === 0 ? (33.00).toFixed(2) : (Math.round(num / den * 10000) / 100).toFixed(2);
   }
   function ogwp(p) {
     let num = 0;
@@ -246,7 +246,7 @@ function computeTiebreakers() {
       num += actual < 0.33 ? 0.33 : actual;
     });
     let den = p.opponents.length;
-    p.oppGameWinPct = den === 0 ? 33 : Math.round(num / den * 10000) / 100;
+    p.oppGameWinPct = den === 0 ? (33.00).toFixed(2) : (Math.round(num / den * 10000) / 100).toFixed(2);
   }
 }
 

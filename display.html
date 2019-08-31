@@ -1,0 +1,26 @@
+<!doctype HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>swissSK - Display</title>
+    <meta name="author" content="Matt Braddock">
+    <meta name="description" content="Swiss pairings tournament app">
+    <meta name="keywords" content="swiss, tournament, pairings, scorekeeping">
+    <link rel='icon' href='img/favicon.ico' type='image/x-icon'/ >
+    
+    <!-- CSS -->
+    <link href="css/display.css" rel="stylesheet">
+    
+    <!-- JS -->
+    <script src="js/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script src="js/display.js"></script>
+  </head>
+  <body>
+    <div id="setup">
+      <button id="loadEvent">Load Event</button> Select the event json file<input type="file" id="loadFile" accept=".json" /><span id="chooseSection"><label for="selectRound">Round: </label><select name="selectRound" id="selectRound"></select>&nbsp;<button id="pairings">Pairings</button>&nbsp;<button id="standings">Standings</button></span>
+    </div>
+    <div class="container">
+    <div id="display"></div>
+    </div>
+  </body>
+</html>

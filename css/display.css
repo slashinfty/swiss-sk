@@ -1,0 +1,85 @@
+body {
+  font-family: monospace;
+  background-color: black;
+  color: white;
+  height: 100vh;
+}
+
+input[type="file"] {
+  display: block;
+  height: 0;
+  width: 0;
+}
+
+#chooseSection {
+  display: none;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.container #display {
+  display: flex;
+  flex-direction: column;
+  font-size: 6vmin;
+  -moz-transform: translateY(100%);
+  -moz-animation: container 8s linear infinite;
+  -webkit-transform: translateY(100%);
+  -webkit-animation: container 8s linear infinite;
+  transform: translateY(100%);
+  animation: container 8s linear infinite;
+}
+
+@-moz-keyframes container {
+  0% {-moz-transform: translateY(100%);}
+  100% {-moz-transform: translateY(-100%);}
+}
+
+@-webkit-keyframes container {
+  0% {-webkit-transform: translateY(100%);}
+  100% {-webkit-transform: translateY(-100%);}
+}
+
+@keyframes container {
+  0%   { 
+    -moz-transform: translateY(100%);
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%); 		
+  }
+  100% { 
+  -moz-transform: translateY(-100%); 
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%); 
+  }
+}
+
+.hflex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lalign {
+  text-align: left;
+}
+
+.match {
+  flex-basis: 6%;
+}
+
+.names {
+  flex-basis: 46%;
+  flex-grow: 1;
+}
+
+.one-name {
+  flex-basis: 43%;
+  flex-grow: 1;
+}
+
+.scores {
+  flex-basis: 49%;
+  flex-grow: 1;
+}
