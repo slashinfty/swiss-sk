@@ -32,15 +32,16 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 - Print pairings by match number or name
 - Filter pairings by match number or name
 - Toggle matches by active/all
-- Can input results with just keypad (dropping currently requires a mouse)
+- Can input results with just keypad (entering `d` with results will drop that player)
 - Can clear results and overwrite results
 - Standings update after each match
 - Filter standings by name
 - Print standings
+- Display pairings and standings on an [external page](https://mattbraddock.com/swiss-sk/display.html)
 
 ### Planned
 - ~~Edit player name on player card~~ **implemented in alpha2**
-- Separate display page for external screens
+- ~~Separate display page for external screens~~ **implemented in alpha3**
 - ~~Hotkey for dropping players while inputting results~~ **implemented in alpha3**
 - Edit matches after pairings
 - Add players late during round one

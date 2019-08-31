@@ -19,43 +19,47 @@ input[type="file"] {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  position: relative; /*added*/
+  position: relative;
 }
 
 .container #display {
-  height: auto; /*added*/
-  min-height: 200%; /*added*/
-  width: 100%; /*added*/
-  position: absolute; /*added*/
-  overflow: hidden; /*added*/
+  height: auto;
+  min-height: 200%;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   font-size: 6vmin;
-  -moz-animation: container 8s linear infinite;
-  -webkit-animation: container 8s linear infinite;
-  animation: container 8s linear infinite;
+  -moz-animation-name: container;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-name: container;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: container;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
-.container #first { /*added*/
-  height: auto;
-  min-height: 50%;
+.container #first {
   margin-bottom: 60px;
   overflow: hidden;
+  flex: 1;
 }
 
-.container #second { /*added*/
-  height: auto;
-  min-height: 50%;
+.container #second {
   margin-bottom: 60px;
   overflow: hidden;
+  flex: 1;
 }
 
-@keyframes container { /*changed*/
+@keyframes container {
   0% {
-    top: 0;
+    transform: translateY(0);
   }
   100% {
-    top: -100%;
+    transform: translateY(-50%);
   }
 }
 

@@ -41,26 +41,34 @@ $(function() {
       if (a.player === b.player) return a.number - b.number;
       return a.player.localeCompare(b.player);
     });
+    let determineSpeed = 0;
     sorted.forEach(s => {
       $('#first').append('<div class="hflex"><span class="match">' + s.number + '</span><span class="names">' + s.player + '</span><span class="names">' + s.opponent + '</span></div>');
+      determineSpeed++;
     });
     sorted.forEach(s => {
       $('#second').append('<div class="hflex"><span class="match">' + s.number + '</span><span class="names">' + s.player + '</span><span class="names">' + s.opponent + '</span></div>');
     });
+    let speed = 0.2 * determineSpeed + 7.8;
+    document.getElementById("display").style.animationDuration = speed + 's';
   });
   
   $('#standings').click(function() {
     $('#setup').css('display', 'none');
     let active = standings.filter(p => p.active === true);
+    let determineSpeed = 0;
     active.forEach((s, i) => {
       let rank = i + 1;
       let score = s.matchPts + ' / ' + s.oppMatchWinPct + ' / ' + s.gameWinPct + ' / ' + s.oppGameWinPct;
       $('#first').append('<div class="hflex"><span class="match">' + rank + '</span><span class="one-name">' + s.alias + '</span><span class="scores">' + score + '</span></div>');
+      determineSpeed++;
     });
     active.forEach((s, i) => {
       let rank = i + 1;
       let score = s.matchPts + ' / ' + s.oppMatchWinPct + ' / ' + s.gameWinPct + ' / ' + s.oppGameWinPct;
       $('#second').append('<div class="hflex"><span class="match">' + rank + '</span><span class="one-name">' + s.alias + '</span><span class="scores">' + score + '</span></div>');
     });
+    let speed = 0.2 * determineSpeed + 7.8;
+    document.getElementById("display").style.animationDuration = speed + 's';
   });
 });
