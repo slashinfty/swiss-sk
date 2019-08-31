@@ -20,7 +20,7 @@
     <script src="js/tabulator-master/dist/js/tabulator.min.js"></script>
   </head>
   <body>
-    <div id="tag"><img src="img/header.png" style="padding-top: 25px;">v0.1 (alpha2) | <a href="https://github.com/slashinfty/swiss-sk" target="_blank">source code</a> | <a href="https://github.com/slashinfty/swiss-sk/issues/new" target="_blank">report an issue</a></div>
+    <div id="tag"><img src="img/header.png" style="padding-top: 25px;">v0.1 (alpha3) | <a href="https://github.com/slashinfty/swiss-sk" target="_blank">source code</a> | <a href="https://github.com/slashinfty/swiss-sk/issues/new" target="_blank">report an issue</a></div>
     <p id="subtitle">A scorekeeping tool for tournaments with Swiss pairings</p>
     <div id="tourney-info">
       <h3>Tournament Info</h3>
@@ -103,8 +103,8 @@
               <option value="1" selected="selected">1</option>
             </select></p>
             <span id="matchIDHolder" data-match="0"><p><input type="number" id="selectedMatchNumber" style="width: 3em" />&nbsp;<label for="selectedMatchNumber">Match Number</label></p>
-            <p><input type="number" id="playerOneWins" style="width: 2em"/>&nbsp;<span id="playerOneAlias"></span></p>
-            <p><input type="number" id="playerTwoWins" style="width: 2em" />&nbsp;<span id="playerTwoAlias"></span></p>
+            <p><input type="text" id="playerOneWins" maxlength="2" style="width: 2em"/>&nbsp;<span id="playerOneAlias"></span></p>
+            <p><input type="text" id="playerTwoWins" maxlength="2" style="width: 2em" />&nbsp;<span id="playerTwoAlias"></span></p>
             <p><input type="number" id="numberOfDraws" style="width: 2em" />&nbsp;Draws</p></span>
             <p ><input type="checkbox" id="dropPlayerOne"><label for="dropPlayerOne">Drop P1</label>&nbsp;<input type="checkbox" id="dropPlayerTwo"><label for="dropPlayerTwo">Drop P2</label></p>
             <p><button id="submitResult">Enter Result</button>&nbsp;<button id="clearResult">Clear Result</button></p>

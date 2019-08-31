@@ -106,7 +106,7 @@ $('#selectedMatchNumber').keyup(function(e) {
 //manual entry methods
 $('#playerOneWins').keyup(function(e) {
   if (e.keyCode === 13 && document.getElementById("matchIDHolder").dataset.match != '0') {
-    let verify = new RegExp('^[0-' + Math.ceil(bestOf / 2).toString() + ']$');
+    let verify = new RegExp('^d?[0-' + Math.ceil(bestOf / 2).toString() + ']d?$');
     if ($('#playerOneWins').val() === '' || $('#playerOneWins').val() === undefined) return;
     else if (!(verify.test($('#playerOneWins').val()))) {
       $('#playerOneWins').val('');
@@ -117,7 +117,7 @@ $('#playerOneWins').keyup(function(e) {
 
 $('#playerTwoWins').keyup(function(e) {
   if (e.keyCode === 13 && document.getElementById("matchIDHolder").dataset.match != '0') {
-    let verify = new RegExp('^[0-' + Math.ceil(bestOf / 2).toString() + ']$');
+    let verify = new RegExp('^d?[0-' + Math.ceil(bestOf / 2).toString() + ']d?$');
     if (!(verify.test($('#playerTwoWins').val()))) {
       $('#playerTwoWins').val('');
       return;
@@ -143,7 +143,7 @@ $('#submitResult').click(function() {
   let numberDraws = $('#numberOfDraws').val();
   let draws = numberDraws === '' || numberDraws === undefined ? 0 : parseInt(numberDraws);
   if (pOneResult === '' || pOneResult === undefined || pTwoResult === '' || pTwoResult === undefined || document.getElementById("matchIDHolder").dataset.match == '0') return;
-  let verify = new RegExp('^[0-' + Math.ceil(bestOf / 2).toString() + ']$');
+  let verify = new RegExp('^d?[0-' + Math.ceil(bestOf / 2).toString() + ']d?$');
   if (!(verify.test(pOneResult)) || !(verify.test(pTwoResult)) || !(/^[0-3]$/.test(draws))) {
     $('#playerOneWins').val('');
     $('#playerTwoWins').val('');
@@ -155,6 +155,19 @@ $('#submitResult').click(function() {
   let match = round.pairings.find(m => m.matchNumber == document.getElementById("matchIDHolder").dataset.match);
   if (match.active === false) {
     matchResult(match.playerOne, match.playerTwo, match.playerOneWins, match.playerTwoWins, match.draws, false);
+  }
+  let dropCheck = new RegExp('.?d.?');
+  if (dropCheck.test(pOneResult)) {
+    pOneResult.replace('d', '');
+    let player = players.find(p => p.playerID == match.playerOne);
+    player.active = false;
+    playersTable.setData(players);
+  }
+  if (dropCheck.test(pTwoResult)) {
+    pTwoResult.replace('d', '');
+    let player = players.find(p => p.playerID == match.playerTwo);
+    player.active = false;
+    playersTable.setData(players);
   }
   match.draws = draws;
   match.playerOneWins = parseInt(pOneResult);

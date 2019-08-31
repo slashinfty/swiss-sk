@@ -1,4 +1,4 @@
-# swiss-sk (v0.1)
+# swiss-sk (v0.1 alpha3)
 An online scorekeeping application for tournaments with Swiss pairings. It is written in JavaScript and runs client-side. **This is currently an ALPHA build - please report all bugs!**
 
 ## Table of Contents
@@ -39,9 +39,9 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 - Print standings
 
 ### Planned
-- ~~Edit player name on player card~~ **implemented in alpha**
+- ~~Edit player name on player card~~ **implemented in alpha2**
 - Separate display page for external screens
-- Hotkey for dropping players while inputting results
+- ~~Hotkey for dropping players while inputting results~~ **implemented in alpha3**
 - Edit matches after pairings
 - Add players late during round one
 - Delete round button
@@ -88,7 +88,7 @@ Data (such as points and tiebreakers) is stored in the exported file, but erased
 In round one, players are randomly paired. In subsequent rounds, players are paired by the Swiss pairing algorithm (designed to be fast, not perfect). The exception is the final Swiss round, which is paired by standings. Pairings can be filtered by name or active status (using the toggle button). Printing pairings launches a dialog to select printing by match number or by name. If printing by match number, it prints what is currently shown on the table (if set to active matches only shown, you get a printout of outstanding matches).
 
 ### Results
-Results can be entered using just the keyboard (aside from dropping players). You can type a match number, press enter to load the match, then enter player one's wins, press enter, then enter player two's wins, and press enter to submit the result. If draws have happened, press tab after player two's wins, then press enter to submit. Clearing a result works as stated, as does entering a new result for a match that already has a result. Once there are no active matches, the ability to create a new round (or end the tournament) is enabled.
+Results can be entered using just the keyboard (aside from dropping players). You can type a match number, press enter to load the match, then enter player one's wins, press enter, then enter player two's wins, and press enter to submit the result. If draws have happened, press tab after player two's wins, then press enter to submit. Clearing a result works as stated, as does entering a new result for a match that already has a result. You can include a 'd' with the amount of wins to drop the player. Once there are no active matches, the ability to create a new round (or end the tournament) is enabled.
 
 ### Standings
 Standings are available when the tournament starts, and are updated after every result. The table can be filtered by name, and active players are bolded. Printing standings prints what is shown in the table.
