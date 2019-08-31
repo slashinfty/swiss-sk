@@ -42,7 +42,10 @@ $(function() {
       return a.player.localeCompare(b.player);
     });
     sorted.forEach(s => {
-      $('#display').append('<div class="hflex"><span class="match">' + s.number + '</span><span class="names">' + s.player + '</span><span class="names">' + s.opponent + '</span></div>');
+      $('#first').append('<div class="hflex"><span class="match">' + s.number + '</span><span class="names">' + s.player + '</span><span class="names">' + s.opponent + '</span></div>');
+    });
+    sorted.forEach(s => {
+      $('#second').append('<div class="hflex"><span class="match">' + s.number + '</span><span class="names">' + s.player + '</span><span class="names">' + s.opponent + '</span></div>');
     });
   });
   
@@ -52,7 +55,12 @@ $(function() {
     active.forEach((s, i) => {
       let rank = i + 1;
       let score = s.matchPts + ' / ' + s.oppMatchWinPct + ' / ' + s.gameWinPct + ' / ' + s.oppGameWinPct;
-      $('#display').append('<div class="hflex"><span class="match">' + rank + '</span><span class="one-name">' + s.alias + '</span><span class="scores">' + score + '</span></div>');
+      $('#first').append('<div class="hflex"><span class="match">' + rank + '</span><span class="one-name">' + s.alias + '</span><span class="scores">' + score + '</span></div>');
+    });
+    active.forEach((s, i) => {
+      let rank = i + 1;
+      let score = s.matchPts + ' / ' + s.oppMatchWinPct + ' / ' + s.gameWinPct + ' / ' + s.oppGameWinPct;
+      $('#second').append('<div class="hflex"><span class="match">' + rank + '</span><span class="one-name">' + s.alias + '</span><span class="scores">' + score + '</span></div>');
     });
   });
 });
