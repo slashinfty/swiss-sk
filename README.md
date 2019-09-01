@@ -1,4 +1,4 @@
-# swiss-sk (v0.1 alpha3)
+# swiss-sk (v0.1 alpha4)
 An online scorekeeping application for tournaments with Swiss pairings. It is written in JavaScript and runs client-side. **This is currently an ALPHA build - please report all bugs!**
 
 ## Table of Contents
@@ -29,11 +29,13 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 - Run tournament as single elimination
 - Change the starting match number (can change each round)
 - Drop/undrop players or change their name by clicking on them in players tab
+- Can add players during first round
 - Print pairings by match number or name
 - Filter pairings by match number or name
 - Toggle matches by active/all
 - Can input results with just keypad (entering `d` with results will drop that player)
 - Can clear results and overwrite results
+- Can edit matches
 - Standings update after each match
 - Filter standings by name
 - Print standings
@@ -43,8 +45,8 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 - ~~Edit player name on player card~~ **implemented in alpha2**
 - ~~Separate display page for external screens~~ **implemented in alpha3**
 - ~~Hotkey for dropping players while inputting results~~ **implemented in alpha3**
-- Edit matches after pairings
-- Add players late during round one
+- ~~Edit matches after pairings~~ **implemented in alpha4**
+- ~~Add players late during round one~~ **implemented in alpha4**
 - Delete round button
 - Print match result slips
 - Custom player ID
@@ -56,7 +58,7 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 Upon loading, the "Tournament Info" accordion will be open. Here you can decide if names will be one name (an alias) or two names (first and last). You can also name the tournament, which is only used for printings and saving the tournament. You can only load a tournament before one is created, and you can only save a tournament after one is created. Loading a tournament will set all appropiate values, toggle all buttons and inputs, and open the correct tab. The save file exported is a readable .json file containing global tournament data, players, pairings, and standings.
 
 ### Players
-Players can be entered using just the keyboard (no mouse) by pressing enter (if two names, pressing enter will move from first name to last name). Player IDs increment from 1 for each player entered; if a player drops, that player's ID will not be reused. If a player is clicked on in the table, a player card dialog appears with the player's name, ID, and amount of match points. In this dialog, players can be dropped or re-added.
+Players can be entered using just the keyboard (no mouse) by pressing enter (if two names, pressing enter will move from first name to last name). Player IDs increment from 1 for each player entered; if a player drops, that player's ID will not be reused. If a player is clicked on in the table, a player card dialog appears with the player's name, ID, and amount of match points. In this dialog, players can be dropped or re-added, and their names can be changed.
 
 The players table can be sorted by ID or name and filtered by ID, name, or active status (using the toggle button). When printing players, it prints what is currently shown on the table (including filters). Players can be imported and exported in readable .json files.
 

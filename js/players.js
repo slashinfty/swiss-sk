@@ -14,6 +14,7 @@ class Player {
     this.gameWinPct = '0';
     this.oppMatchWinPct = '0';
     this.oppGameWinPct = '0';
+    this.paired = false;
   }
 }
 
@@ -256,6 +257,13 @@ function assignBye(p) {
   p.matchPts += 3;
   p.matches++;
   p.gamePts += 6;
+  p.games += 2;
+  computeTiebreakers();
+  updateStandings();
+}
+
+function assignLoss(p) {
+  p.matches++;
   p.games += 2;
   computeTiebreakers();
   updateStandings();

@@ -11,7 +11,18 @@ $(function() {
     heightStyle: "fill",
     disabled: true,
     collapsible: true,
-    active: false 
+    active: false,
+    activate: (e, ui) => {
+      if (ui.newTab.index() !== 1) return;
+      let activePlayers = players.filter(p => p.active === true);
+      let unpairedPlayers = activePlayers.filter(a => a.paired === false);
+      if (unpairedPlayers.length === 0) return;
+      $('.pairings-left').css('display', 'none');
+      editTable.setData(unpairedPlayers);
+      $('#editPairingsButton').prop('checked', true);
+      $('#editPairingsButton').prop('disabled', true);
+      $('.edit-pairings').css('display', 'inline-block');
+    }
   });
   
   $('#filterDroppedPlayers').checkboxradio({
@@ -19,6 +30,10 @@ $(function() {
   });
   
   $('#filterActivePairings').checkboxradio({
+    icon: false
+  });
+  
+  $('#editPairingsButton').checkboxradio({
     icon: false
   });
   
@@ -50,6 +65,7 @@ $(function() {
           players.splice(players.indexOf(playerToDrop), 1);
         } else {
           playerToDrop.active = !(playerToDrop.active);
+          if (player.active === false) player.paired = false;
         }
         playersTable.setData(players);
         updatePlayersInterface();
@@ -84,7 +100,7 @@ $(function() {
 var playersTable = new Tabulator("#players-table", {
   index: "playerID",
   data: players,
-  height: "430px",
+  height: "410px",
   layout: "fitColumns",
   resizableColumns: false,
   printAsHtml: true,
@@ -123,28 +139,88 @@ var playersTable = new Tabulator("#players-table", {
   ]
 });
 
+var editTable = new Tabulator("#edit-table", {
+  index: "playerID",
+  data: [],
+  height: "200px",
+  layout: "fitColumns",
+  resizableColumns: false,
+  rowClick: (e, row) => {
+    let data = row.getData();
+    if (document.getElementById("editPOne").dataset.poneid == "0") {
+      document.getElementById("editPOne").dataset.poneid = data.playerID.toString();
+      $("#editPlayerOne").text(data.alias);
+      $("#assignBye").prop("disabled", false);
+      $("#assignLoss").prop("disabled", false);
+      $("#removePlayer").prop("disabled", false);
+    } else if (document.getElementById("editPTwo").dataset.ptwoid == "0") {
+      if (document.getElementById("editPOne").dataset.poneid == data.playerID) return;
+      document.getElementById("editPTwo").dataset.ptwoid = data.playerID.toString();
+      $("#editPlayerTwo").text(data.alias);
+      $("#assignBye").prop("disabled", true);
+      $("#assignLoss").prop("disabled", true);
+      $("#removePlayer").prop("disabled", true);
+      $("#pairPlayers").prop("disabled", false);
+      $("#removePlayers").prop("disabled", false);
+    } else return;
+  },
+  initialSort: [
+    {column: "playerID", dir: "asc"},
+    {column: "alias", dir: "asc"}
+  ],
+  columns: [
+    {title: "ID", field: "playerID", width: 55, sorter: (a, b, aRow, bRow, column, dir, sorterParams) => {
+      return a - b;
+    }},
+    {title: "Name", field: "alias", widthGrow: 1, formatter: (cell, formatterParams, onRendered) => {
+      let data = cell.getData();
+      return cell.getValue() + ' (' + data.matchPts + ')';
+    }}
+  ]
+});
+
 var pairingsTable = new Tabulator("#pairings-table", {
   index: "matchNumber",
-  height: "420px",
+  height: "410px",
   layout: "fitColumns",
   resizableColumns: false,
   printAsHtml: true,
   printHeader: () => "<h1>" + $('#tourney-name').val() + " - Round " + currentRound.toString() + "</h1>",
   rowClick: (e, row) => {
-    let data = row.getData();
-    if (data.matchNumber === 0) return;
-    document.getElementById("matchIDHolder").dataset.match = data.matchNumber;
-    if (data.active === false) {
-      $('#playerOneWins').val(data.playerOneWins);
-      $('#playerTwoWins').val(data.playerTwoWins);
+    if ($('#editPairingsButton').prop('checked')) {
+      let currPairings = pairings.find(r => r.round == currentRound).pairings;
+      let data = row.getData();
+      if (data.active === false && data.matchNumber !== 0) return;
+      if (data.matchNumber !== 0) unusedMatchNumbers.push(data.matchNumber);
+      currPairings.splice(currPairings.indexOf(data), 1);
+      let playerOne = players.find(p => p.playerID === data.playerOne);
+      playerOne.paired = false;
+      if (data.matchNumber != 0) {
+        let playerTwo = players.find(o => o.playerID === data.playerTwo);
+        playerTwo.paired = false;
+      }
+      let activePlayers = players.filter(p => p.active === true);
+      let unpairedPlayers = activePlayers.filter(a => a.paired === false);
+      editTable.setData(unpairedPlayers);
+      $('#editPairingsButton').prop('disabled', true);
+      pairingsTable.setData(currPairings);
+      updatePairingsFooter();
     } else {
-      $('#playerOneWins').val('');
-      $('#playerTwoWins').val('');
-      $('#numberOfDraws').val('');
+      let data = row.getData();
+      if (data.matchNumber === 0) return;
+      document.getElementById("matchIDHolder").dataset.match = data.matchNumber;
+      if (data.active === false) {
+        $('#playerOneWins').val(data.playerOneWins);
+        $('#playerTwoWins').val(data.playerTwoWins);
+      } else {
+        $('#playerOneWins').val('');
+        $('#playerTwoWins').val('');
+        $('#numberOfDraws').val('');
+      }
+      $('#selectedMatchNumber').val(data.matchNumber);
+      $('#playerOneAlias').text(data.playerOneName);
+      $('#playerTwoAlias').text(data.playerTwoName);
     }
-    $('#selectedMatchNumber').val(data.matchNumber);
-    $('#playerOneAlias').text(data.playerOneName);
-    $('#playerTwoAlias').text(data.playerTwoName);
   },
   initialSort: [
     {column: "matchNumber", dir: "asc"}
@@ -224,7 +300,7 @@ var standingsTable = new Tabulator("#standings-table", {
   layout: "fitColumns",
   printAsHtml: true,
   resizableColumns: false,
-  height: "440px",
+  height: "410px",
   printHeader: () => "<h1>" + $('#tourney-name').val() + " - Standings</h1>",
   rowFormatter: (row) => {
     let data = row.getData();

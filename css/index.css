@@ -117,6 +117,14 @@ input[type=number] {
   vertical-align: top;
 }
 
+.edit-pairings {
+  width: 33%;
+  margin-right: -4px;
+  display: none;
+  vertical-align: top;
+  padding-right: 6px;
+}
+
 .pairings-right {
   width: 66%;
   display: inline-block

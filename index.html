@@ -20,7 +20,7 @@
     <script src="js/tabulator-master/dist/js/tabulator.min.js"></script>
   </head>
   <body>
-    <div id="tag"><img src="img/header.png" style="padding-top: 25px;">v0.1 (alpha3) | <a href="https://github.com/slashinfty/swiss-sk" target="_blank">source code</a> | <a href="https://github.com/slashinfty/swiss-sk/issues/new" target="_blank">report an issue</a></div>
+    <div id="tag"><img src="img/header.png" style="padding-top: 25px;">v0.1 (alpha4) | <a href="https://github.com/slashinfty/swiss-sk/blob/master/README.md" target="_blank">how to</a> | <a href="https://github.com/slashinfty/swiss-sk" target="_blank">source code</a> | <a href="https://github.com/slashinfty/swiss-sk/issues/new" target="_blank">report an issue</a></div>
     <p id="subtitle">A scorekeeping tool for tournaments with Swiss pairings</p>
     <div id="tourney-info">
       <h3>Tournament Info</h3>
@@ -110,6 +110,13 @@
             <p><button id="submitResult">Enter Result</button>&nbsp;<button id="clearResult">Clear Result</button></p>
             <p><button id="createNewRound" disabled>Create Next Round</button></p>
           </div>
+          <div class="edit-pairings">
+            <div id="edit-table"></div>
+            <p id="editPOne" data-poneid="0">Player One: <span id="editPlayerOne"></span></p>
+            <p><button id="assignBye" disabled>Assign Bye</button>&nbsp;<button id="assignLoss" disabled>Assign Loss</button></p><p><button id="removePlayer" disabled>Remove Player</button></p>
+            <p id="editPTwo" data-ptwoid="0">Player Two: <span id="editPlayerTwo"></span></p>
+            <p><button id="pairPlayers" disabled>Pair Players</button>&nbsp;<button id="removePlayers" disabled>Remove Players</button></p>
+          </div>
           <div class="pairings-right">
             <div class="fbox above-table">
             <div class="twobox"><label for ="pairingsTableFilter">Search: </label>
@@ -118,7 +125,11 @@
             <input type="checkbox" id="filterActivePairings"></div>
             </div>
             <div id="pairings-table"></div>
-            <div class="alignr"><button id="printPairings" onclick="$('#printPairingsDialog').dialog('open')">Print Pairings</button></div>
+            <div class="fbox above-table">
+            <div class="onebox"><label for="editPairingsButton">Edit Matches</label>
+            <input type="checkbox" id="editPairingsButton"></div>
+            <div class="onebox alignr"><button id="printPairings" onclick="$('#printPairingsDialog').dialog('open')">Print Pairings</button></div>
+            </div>
             <div id="pair-name-table" style="visibility: hidden !important"></div>
             <!-- edit pairings button -->
           </div>

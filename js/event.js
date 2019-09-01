@@ -25,7 +25,7 @@ $('#startTournament').click(function() {
   $('#importPlayers').prop('disabled', true);
   $('#startTournament').prop('disabled', true);
   $('#singleElimOption').prop('disabled', true);
-  $('#addPlayer').prop('disabled', true);
+  //$('#addPlayer').prop('disabled', true);
   bestOf = $('#bestOfNumber').val();
   createPairings();
   singleElim = $('#singleElimOption').prop('checked') === true ? true : false;
@@ -106,7 +106,7 @@ $('#loadFile').change(function() {
       $('#importPlayers').prop('disabled', true);
       $('#startTournament').prop('disabled', true);
       $('#singleElimOption').prop('disabled', true);
-      if (currentRound >= 1) $('#addPlayer').prop('disabled', true);
+      if (currentRound > 1) $('#addPlayer').prop('disabled', true);
       if (currentRound > 1) {
         for(let i = 2; i <= currentRound; i++){
           $('#displayedRound').append('<option value="' + i + '">' +
