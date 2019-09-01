@@ -44,7 +44,9 @@ $('#saveTournament').click(function() {
     topX: cutToTop,
     bestOfGames: bestOf,
     currID: playerIDCounter,
-    startMatch: $('#startingMatchNumber').val()
+    startMatch: $('#startingMatchNumber').val(),
+    lastMatch: lastMatchNumber,
+    unusedMatches: unusedMatchNumbers
   };
   saveJson.splice(0, 0, header, players, pairings, standings);
   let filename = $('#tourney-name').val() === '' ? "swiss-sk.json" : $('#tourney-name').val() + '.json';
@@ -68,6 +70,8 @@ $('#loadFile').change(function() {
     playerIDCounter = header.currID;
     cutToTop = header.topX;
     bestOf = header.bestOfGames;
+    lastMatchNumber = header.lastMatch;
+    unusedMatchNumbers = header.unusedMatches;
     $('#numberOfTop').val(cutToTop);
     $('#numberOfRounds').val(numberOfRounds);
     $('#startingMatchNumber').val(header.startMatch);
