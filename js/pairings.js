@@ -8,6 +8,8 @@ class Match {
     this.playerOneWins = 0;
     this.playerTwoWins = 0;
     this.draws = 0;
+    this.playerOneDrop = false;
+    this.playerTwoDrop = false;
     this.playerOneName = pOneName; //placeholder
     this.playerTwoName = pTwoName; //placeholder
     this.result = false; //placeholder
@@ -107,7 +109,7 @@ $('#filterActivePairings').change(function() {
 //load match by match number
 $('#selectedMatchNumber').keyup(function(e) {
   let matchID = $('#selectedMatchNumber').val();
-  if (e.keyCode === 13 && matchID != 0) { //TODO load existing results
+  if (e.keyCode === 13 && matchID != 0) {
     let round = pairings.find(r => r.round == $('#displayedRound').val());
     let match = round.pairings.find(m => m.matchNumber == matchID);
     if (match === undefined) return;
@@ -165,6 +167,13 @@ $('#submitResult').click(function() {
   let pOneResult = $('#playerOneWins').val();
   let pTwoResult = $('#playerTwoWins').val();
   let numberDraws = $('#numberOfDraws').val();
+  if (singleElim === true && pOneResult === pTwoResult) {
+    $('#playerOneWins').val('');
+    $('#playerTwoWins').val('');
+    $('#numberOfDraws').val('');
+    $('#playerOneWins').focus();
+    return;
+  }
   let draws = numberDraws === '' || numberDraws === undefined ? 0 : parseInt(numberDraws);
   if (pOneResult === '' || pOneResult === undefined || pTwoResult === '' || pTwoResult === undefined || document.getElementById("matchIDHolder").dataset.match == '0') return;
   let verify = new RegExp('^d?[0-' + Math.ceil(bestOf / 2).toString() + ']d?$');
@@ -186,44 +195,88 @@ $('#submitResult').click(function() {
     let player = players.find(p => p.playerID == match.playerOne);
     player.paired = false;
     player.active = false;
+    match.playerOneDrop = true;
     playersTable.setData(players);
     let activePlayers = players.filter(player => player.active === true);
     let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
     $('#playerTableFoot').text(footerText);
+  } else {
+    if (match.active === false) {
+      let player = players.find(p => p.playerID == match.playerOne);
+      player.active = true;
+      match.playerOneDrop = false;
+      playersTable.setData(players);
+      let activePlayers = players.filter(player => player.active === true);
+      let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+      $('#playerTableFoot').text(footerText);
+    }
   }
   if (dropCheck.test(pTwoResult)) {
     pTwoResult.replace('d', '');
     let player = players.find(p => p.playerID == match.playerTwo);
     player.paired = false;
     player.active = false;
+    match.playerTwoDrop = true;
     playersTable.setData(players);
     let activePlayers = players.filter(player => player.active === true);
     let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
     $('#playerTableFoot').text(footerText);
+  } else {
+    if (match.active === false) {
+      let player = players.find(p => p.playerID == match.playerTwo);
+      player.active = true;
+      match.playerTwoDrop = false;
+      playersTable.setData(players);
+      let activePlayers = players.filter(player => player.active === true);
+      let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+      $('#playerTableFoot').text(footerText);
+    }
   }
   match.draws = draws;
   match.playerOneWins = parseInt(pOneResult);
   match.playerTwoWins = parseInt(pTwoResult);
   matchResult(match.playerOne, match.playerTwo, match.playerOneWins, match.playerTwoWins, draws);
-  match.active = false;
   if ($('#dropPlayerOne').prop('checked')) {
     let player = players.find(p => p.playerID == match.playerOne);
     player.paired = false;
     player.active = false;
+    match.playerOneDrop = true;
     playersTable.setData(players);
     let activePlayers = players.filter(player => player.active === true);
     let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
     $('#playerTableFoot').text(footerText);
+  } else {
+    if (match.active === false) {
+      let player = players.find(p => p.playerID == match.playerOne);
+      player.active = true;
+      match.playerOneDrop = false;
+      playersTable.setData(players);
+      let activePlayers = players.filter(player => player.active === true);
+      let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+      $('#playerTableFoot').text(footerText);
+    }
   }
   if ($('#dropPlayerTwo').prop('checked')) {
     let player = players.find(p => p.playerID == match.playerTwo);
     player.paired = false;
     player.active = false;
+    match.playerTwoDrop = true;
     playersTable.setData(players);
     let activePlayers = players.filter(player => player.active === true);
     let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
     $('#playerTableFoot').text(footerText);
+  } else {
+    if (match.active === false) {
+      let player = players.find(p => p.playerID == match.playerTwo);
+      player.active = true;
+      match.playerTwoDrop = false;
+      playersTable.setData(players);
+      let activePlayers = players.filter(player => player.active === true);
+      let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+      $('#playerTableFoot').text(footerText);
+    }
   }
+  match.active = false;
   $('#dropPlayerOne').prop('checked', false);
   $('#dropPlayerTwo').prop('checked', false);
   document.getElementById("matchIDHolder").dataset.match = 0;
@@ -249,6 +302,26 @@ $('#clearResult').click(function() {
   let match = round.pairings.find(m => m.matchNumber == matchNo);
   if (match.active === true) return;
   matchResult(match.playerOne, match.playerTwo, match.playerOneWins, match.playerTwoWins, match.draws, false);
+  if (match.playerOneDrop === true) {
+    let player = players.find(p => p.playerID == match.playerOne);
+    player.active = true;
+    player.paired = true;
+    match.playerOneDrop = false;
+    playersTable.setData(players);
+    let activePlayers = players.filter(player => player.active === true);
+    let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+    $('#playerTableFoot').text(footerText);
+  }
+  if (match.playerTwoDrop === true) {
+    let player = players.find(p => p.playerID == match.playerTwo);
+    player.active = true;
+    player.paired = true;
+    match.playerTwoDrop = false;
+    playersTable.setData(players);
+    let activePlayers = players.filter(player => player.active === true);
+    let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+    $('#playerTableFoot').text(footerText);
+  }
   match.active = true;
   match.playerOneWins = 0;
   match.playerTwoWins = 0;
@@ -260,6 +333,8 @@ $('#clearResult').click(function() {
   $('#numberOfDraws').val('');
   $('#playerOneAlias').text('');
   $('#playerTwoAlias').text('');
+  $('#dropPlayerOne').prop('checked', false);
+  $('#dropPlayerTwo').prop('checked', false);
   pairingsTable.setData(round.pairings);
   updatePairingsFooter();
   $('#selectedMatchNumber').focus();

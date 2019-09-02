@@ -20,7 +20,7 @@
     <script src="js/tabulator-master/dist/js/tabulator.min.js"></script>
   </head>
   <body>
-    <div id="tag"><img src="img/header.png" style="padding-top: 25px;">v0.1 (alpha4) | <a href="https://github.com/slashinfty/swiss-sk/blob/master/README.md" target="_blank">how to</a> | <a href="https://github.com/slashinfty/swiss-sk" target="_blank">source code</a> | <a href="https://github.com/slashinfty/swiss-sk/issues/new" target="_blank">report an issue</a></div>
+    <div id="tag"><img src="img/header.png" style="padding-top: 25px;">v0.1 (alpha5) | <a href="https://github.com/slashinfty/swiss-sk/blob/master/README.md" target="_blank">how to</a> | <a href="https://github.com/slashinfty/swiss-sk" target="_blank">source code</a> | <a href="https://github.com/slashinfty/swiss-sk/issues/new" target="_blank">report an issue</a></div>
     <p id="subtitle">A scorekeeping tool for tournaments with Swiss pairings</p>
     <div id="tourney-info">
       <h3>Tournament Info</h3>
@@ -118,6 +118,7 @@
             <p><button id="pairPlayers" disabled>Pair Players</button>&nbsp;<button id="removePlayers" disabled>Remove Players</button></p>
           </div>
           <div class="pairings-right">
+            <div id="deleteRoundDialog" title="Delete Round">This action is not reversible. Please confirm round deletion.</div>
             <div class="fbox above-table">
             <div class="twobox"><label for ="pairingsTableFilter">Search: </label>
             <input type="text" id="pairingsTableFilter" size="26" onkeyup="filterPairingsText()" /></div>
@@ -127,7 +128,7 @@
             <div id="pairings-table"></div>
             <div class="fbox above-table">
             <div class="onebox"><label for="editPairingsButton">Edit Matches</label>
-            <input type="checkbox" id="editPairingsButton"></div>
+            <input type="checkbox" id="editPairingsButton"></div>&nbsp;<button id="deleteRoundButton" onclick="$('#deleteRoundDialog').dialog('open')">Delete Round</button>
             <div class="onebox alignr"><button id="printPairings" onclick="$('#printPairingsDialog').dialog('open')">Print Pairings</button></div>
             </div>
             <div id="pair-name-table" style="visibility: hidden !important"></div>

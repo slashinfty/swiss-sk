@@ -74,6 +74,68 @@ $(function() {
     }
   });
   
+  $('#deleteRoundDialog').dialog({
+    autoOpen: false,
+    buttons: {
+      "Delete Round": () => {
+        let round = pairings.find(r => r.round == currentRound);
+        let matchesToErase = round.pairings.filter(p => p.active === false);
+        matchesToErase.forEach(m => {
+          if (m.playerTwo !== 0) {
+            matchResult(m.playerOne, m.playerTwo, m.playerOneWins, m.playerTwoWins, m.draws, false);
+          } else {
+            let pOne = players.find(o => o.playerID === m.playerOne);
+            if (m.playerTwoName === 'Bye') {
+              pOne.byes--;
+              pOne.matchPts -= 3;
+              pOne.matches--;
+              pOne.gamePts -= 6;
+              pOne.games -= 2;
+            } else if (m.playerTwoName === 'Loss') {
+              pOne.matches--;
+              pOne.games -= 2;
+            }
+          }
+          if (m.playerOneDrop === true) players.find(a => a.playerID === m.playerOne).active = true;
+          if (m.playerTwoDrop === true) players.find(b => b.playerID === m.playerTwo).active = true;
+        });
+        computeTiebreakers();
+        updateStandings();
+        playersTable.setData(players);
+        let activePlayers = players.filter(player => player.active === true);
+        let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+        $('#playerTableFoot').text(footerText);
+        $('#deleteRoundDialog').dialog('close');
+        if (currentRound === 1) {
+          currentRound--;
+          $('#importPlayers').prop('disabled', false);
+          $('#startTournament').prop('disabled', false);
+          $('#singleElimOption').prop('disabled', false);
+          $('#tabbed-interface').tabs('disable', 2);
+          $('#tabbed-interface').tabs('disable', 1).tabs('option', 'active', 0);
+        } else {
+          $('#displayedRound option[value="' + currentRound + '"]').remove();
+          currentRound--;
+          $('#displayedRound option[value="' + currentRound + '"]').prop('selected', true);
+          if (currentRound === 1) $('#addPlayer').prop('disabled', false);
+          let currPairings = pairings.find(c => c.round == currentRound).pairings;
+          pairingsTable.setData(currPairings);
+          let checkActive = currPairings.filter(m => m.active === true);
+          if (checkActive.length === 0) $('#createNewRound').prop('disabled', false);
+        }
+        pairings.splice(pairings.indexOf(round), 1);
+        document.getElementById("matchIDHolder").dataset.match = 0;
+        $('#selectedMatchNumber').val('');
+        $('#playerOneWins').val('');
+        $('#playerTwoWins').val('');
+        $('#numberOfDraws').val('');
+        $('#playerOneAlias').text('');
+        $('#playerTwoAlias').text('');
+        updatePairingsFooter();
+      }
+    }
+  });
+  
   $('#printPairingsDialog').dialog({
     autoOpen: false,
     buttons: {
@@ -227,6 +289,8 @@ var pairingsTable = new Tabulator("#pairings-table", {
       if (data.active === false) {
         $('#playerOneWins').val(data.playerOneWins);
         $('#playerTwoWins').val(data.playerTwoWins);
+        if (data.playerOneDrop === true) $('#dropPlayerOne').prop('checked', true);
+        if (data.playerTwoDrop === true) $('#dropPlayerTwo').prop('checked', true);
       } else {
         $('#playerOneWins').val('');
         $('#playerTwoWins').val('');

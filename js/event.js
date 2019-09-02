@@ -25,7 +25,6 @@ $('#startTournament').click(function() {
   $('#importPlayers').prop('disabled', true);
   $('#startTournament').prop('disabled', true);
   $('#singleElimOption').prop('disabled', true);
-  //$('#addPlayer').prop('disabled', true);
   bestOf = $('#bestOfNumber').val();
   createPairings();
   singleElim = $('#singleElimOption').prop('checked') === true ? true : false;
