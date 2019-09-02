@@ -187,6 +187,9 @@ $('#submitResult').click(function() {
     player.paired = false;
     player.active = false;
     playersTable.setData(players);
+    let activePlayers = players.filter(player => player.active === true);
+    let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+    $('#playerTableFoot').text(footerText);
   }
   if (dropCheck.test(pTwoResult)) {
     pTwoResult.replace('d', '');
@@ -194,6 +197,9 @@ $('#submitResult').click(function() {
     player.paired = false;
     player.active = false;
     playersTable.setData(players);
+    let activePlayers = players.filter(player => player.active === true);
+    let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+    $('#playerTableFoot').text(footerText);
   }
   match.draws = draws;
   match.playerOneWins = parseInt(pOneResult);
@@ -205,12 +211,18 @@ $('#submitResult').click(function() {
     player.paired = false;
     player.active = false;
     playersTable.setData(players);
+    let activePlayers = players.filter(player => player.active === true);
+    let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+    $('#playerTableFoot').text(footerText);
   }
   if ($('#dropPlayerTwo').prop('checked')) {
     let player = players.find(p => p.playerID == match.playerTwo);
     player.paired = false;
     player.active = false;
     playersTable.setData(players);
+    let activePlayers = players.filter(player => player.active === true);
+    let footerText = 'Active Players: ' + activePlayers.length + ' | Total Players: ' + players.length;
+    $('#playerTableFoot').text(footerText);
   }
   $('#dropPlayerOne').prop('checked', false);
   $('#dropPlayerTwo').prop('checked', false);

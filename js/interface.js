@@ -198,6 +198,21 @@ var pairingsTable = new Tabulator("#pairings-table", {
       if (data.matchNumber != 0) {
         let playerTwo = players.find(o => o.playerID === data.playerTwo);
         playerTwo.paired = false;
+      } else {
+        if (data.playerTwoName === 'Bye') {
+          playerOne.byes--;
+          playerOne.matchPts -= 3;
+          playerOne.matches--;
+          playerOne.gamePts -= 6;
+          playerOne.games -= 2;
+          computeTiebreakers();
+          updateStandings();
+        } else if (data.playerTwoName === 'Loss') {
+          playerOne.matches--;
+          playerOne.games -= 2;
+          computeTiebreakers();
+          updateStandings();
+        }
       }
       let activePlayers = players.filter(p => p.active === true);
       let unpairedPlayers = activePlayers.filter(a => a.paired === false);
