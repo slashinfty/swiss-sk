@@ -195,6 +195,7 @@ $('#submitResult').click(function() {
     let player = players.find(p => p.playerID == match.playerOne);
     player.paired = false;
     player.active = false;
+    player.dropRound = currentRound;
     match.playerOneDrop = true;
     playersTable.setData(players);
     let activePlayers = players.filter(player => player.active === true);
@@ -216,6 +217,7 @@ $('#submitResult').click(function() {
     let player = players.find(p => p.playerID == match.playerTwo);
     player.paired = false;
     player.active = false;
+    player.dropRound = currentRound;
     match.playerTwoDrop = true;
     playersTable.setData(players);
     let activePlayers = players.filter(player => player.active === true);
@@ -240,6 +242,7 @@ $('#submitResult').click(function() {
     let player = players.find(p => p.playerID == match.playerOne);
     player.paired = false;
     player.active = false;
+    player.dropRound = currentRound;
     match.playerOneDrop = true;
     playersTable.setData(players);
     let activePlayers = players.filter(player => player.active === true);
@@ -260,6 +263,7 @@ $('#submitResult').click(function() {
     let player = players.find(p => p.playerID == match.playerTwo);
     player.paired = false;
     player.active = false;
+    player.dropRound = currentRound;
     match.playerTwoDrop = true;
     playersTable.setData(players);
     let activePlayers = players.filter(player => player.active === true);

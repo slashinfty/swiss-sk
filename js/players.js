@@ -15,6 +15,7 @@ class Player {
     this.oppMatchWinPct = '0';
     this.oppGameWinPct = '0';
     this.paired = false;
+    this.dropRound = null;
   }
 }
 

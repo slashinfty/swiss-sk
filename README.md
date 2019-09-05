@@ -1,4 +1,4 @@
-# swiss-sk (v0.1 alpha5)
+# swiss-sk (v0.1 alpha6)
 An online scorekeeping application for tournaments with Swiss pairings. It is written in JavaScript and runs client-side. **This is currently an ALPHA build - please report all bugs!**
 
 ## Table of Contents
@@ -80,7 +80,9 @@ The players table can be sorted by ID or name and filtered by ID, name, or activ
 		"matchWinPct": 100,
 		"gameWinPct": 100,
 		"oppMatchWinPct": 33,
-		"oppGameWinPct": 33
+		"oppGameWinPct": 33,
+    "paired": false,
+    "dropRound": null
 	}
 ]
 ```
@@ -103,4 +105,4 @@ Standings are available when the tournament starts, and are updated after every 
 - The pairing algorithm may fail or loop indefinitely - please report any issues, and include your tournament JSON data, if possible
 - ~~You can enter a draw during single elimination (someone definitely gets dropped, though)~~ **fixed in alpha5**
 - ~~If you enter a new result for a match that already has a result, and a player was dropped initially, they stay dropped~~ **fixed in alpha5**
-- Re-adding a player in a round after they have dropped doesn't impact their tiebreakers (does not assign losses for missed rounds)
+- ~~Re-adding a player in a round after they have dropped doesn't impact their tiebreakers (does not assign losses for missed rounds)~~ **fixed in alpha6**

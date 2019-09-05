@@ -65,7 +65,21 @@ $(function() {
           players.splice(players.indexOf(playerToDrop), 1);
         } else {
           playerToDrop.active = !(playerToDrop.active);
-          if (player.active === false) player.paired = false;
+          if (playerToDrop.active === true) {
+            if (playerToDrop.dropRound != currentRound) {
+              for (let i = playerToDrop.dropRound + 1; i < currentRound; i++) {
+                const loss = new Match(0, playerToDrop.playerID, 0, playerToDrop.alias, 'Loss');
+                assignLoss(playerToDrop);
+                loss.active = false;
+                pairings.find(r => r.round == i).pairings.push(loss);
+              }
+            }
+            playerToDrop.dropRound = null;
+          }
+          if (playerToDrop.active === false) {
+            playerToDrop.dropRound = currentRound;
+            playerToDrop.paired = false;
+          }
         }
         playersTable.setData(players);
         updatePlayersInterface();
