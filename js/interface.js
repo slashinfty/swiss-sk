@@ -37,6 +37,21 @@ $(function() {
     icon: false
   });
   
+  $('#loadStoredEventDialog').dialog({
+    autoOpen: false,
+    buttons: {
+      "Load Event": () => {
+        let savedEvent = JSON.parse(window.localStorage.getItem("event"));
+        loadEvent(savedEvent);
+        $('#loadStoredEventDialog').dialog('close');
+      },
+      "Clear Saved Event": () => {
+        window.localStorage.removeItem("event");
+        $('#loadStoredEventDialog').dialog('close');
+      }
+    }
+  });
+  
   $('#playersDialog').dialog({
     autoOpen: false,
     buttons: {
@@ -171,6 +186,18 @@ $(function() {
       }
     }
   });
+});
+
+$(document).ready(() => {
+  let checkStorage = window.localStorage.getItem("event");
+  if (checkStorage != null && checkStorage != undefined) {
+    try {
+      $('#loadStoredEventDialog').html('You have a saved event "' + JSON.parse(checkStorage)[0].name + '" - do you want to load this event?');
+      $('#loadStoredEventDialog').dialog('open');
+    } catch(err) {
+      console.log(err);
+    } 
+  }
 });
 
 var playersTable = new Tabulator("#players-table", {

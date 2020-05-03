@@ -352,6 +352,8 @@ $('#createNewRound').click(function() {
   let activePlayers = players.filter(player => player.active === true);
   if ($('#createNewRound').text === 'End Tournament') endTournament();
   else {
+    let saveJson = saveEvent();
+    window.localStorage.setItem("event", JSON.stringify(saveJson));
     activePlayers.forEach(p => p.paired = false);
     createPairings();
     if (currentRound === 2) {

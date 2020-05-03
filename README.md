@@ -1,4 +1,4 @@
-# swiss-sk (v0.1 alpha6)
+# swiss-sk (v0.2 beta1)
 An online scorekeeping application for tournaments with Swiss pairings. It is written in JavaScript and runs client-side. **This is currently an ALPHA build - please report all bugs!**
 
 ## Table of Contents
@@ -19,6 +19,7 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 ### Current
 - Create tournaments with a custom name
 - Export and import tournaments (in readable .json format)
+- **New** Tournament saves in localStorage at every round creation (in case tabs are accidentally closed)
 - Input player names as either an alias or first and last name
 - Export and import players (in readable .json format)
 - Print a list of players
@@ -65,25 +66,25 @@ The players table can be sorted by ID or name and filtered by ID, name, or activ
 
 ```JSON
 [
-	{
-		"alias": "Braddock, Matt",
-		"playerID": 1,
-		"matchPts": 3,
-		"matches": 1,
-		"gamePts": 6,
-		"games": 2,
-		"byes": 0,
-		"opponents": [
-			5
-		],
-		"active": true,
-		"matchWinPct": 100,
-		"gameWinPct": 100,
-		"oppMatchWinPct": 33,
-		"oppGameWinPct": 33,
-    "paired": false,
-    "dropRound": null
-	}
+ {
+  "alias": "Braddock, Matt",
+  "playerID": 1,
+  "matchPts": 3,
+  "matches": 1,
+  "gamePts": 6,
+  "games": 2,
+  "byes": 0,
+  "opponents": [
+    5
+  ],
+  "active": true,
+  "matchWinPct": 100,
+  "gameWinPct": 100,
+  "oppMatchWinPct": 33,
+  "oppGameWinPct": 33,
+  "paired": false,
+  "dropRound": null
+ }
 ]
 ```
 Data (such as points and tiebreakers) is stored in the exported file, but erased when importing; new players are created using the alias field. Thus, a bare minimum .json file to import would be objects with just an alias field and a name included.
