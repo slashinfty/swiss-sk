@@ -60,7 +60,7 @@ function endTournament() {
   $('#createNewRound').prop('disabled', true);
   players.forEach(p => p.active = false);
   $('#tabbed-interface').tabs('option', 'active', 2);
-  localStorage.setItem("event", null);
+  window.localStorage.removeItem("event");
 }
 
 function saveEvent() {
