@@ -131,7 +131,14 @@ $('#importPlayersFile').change(function() {
   let importFile = $('#importPlayersFile')[0].files[0];
   let reader = new FileReader();
   reader.onload = (e) => {
-    let importedPlayers = JSON.parse(reader.result);
+    let importedPlayers;
+    Papa.parse(reader.result, {
+      header: true,
+      dynamicTyping: true,
+      complete: (results, file) => {
+        importedPlayers = results.data;
+      }
+    });
     importedPlayers.forEach(p => {
       playerIDCounter++;
       const newP = new Player(p.alias);
@@ -150,7 +157,8 @@ $('#printPlayers').click(function() {
 
 //export players as json
 $('#exportPlayers').click(function() {
-  saveAs(new Blob([JSON.stringify(players, null, '\t')], {type: "text/plain;charset=utf-8"}), "players.json");
+  //saveAs(new Blob([JSON.stringify(players, null, '\t')], {type: "text/plain;charset=utf-8"}), "players.json");
+  saveAs(new Blob([Papa.unparse(players)], {type: "text/plain;charset=utf-8"}), "players.csv");
 });
 
 //filter when inputting search

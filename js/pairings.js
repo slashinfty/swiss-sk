@@ -352,8 +352,6 @@ $('#createNewRound').click(function() {
   let activePlayers = players.filter(player => player.active === true);
   if ($('#createNewRound').text === 'End Tournament') endTournament();
   else {
-    let saveJson = saveEvent();
-    window.localStorage.setItem("event", JSON.stringify(saveJson));
     activePlayers.forEach(p => p.paired = false);
     createPairings();
     if (currentRound === 2) {
@@ -369,6 +367,8 @@ $('#createNewRound').click(function() {
                              currentRound + '</option>').val(currentRound.toString());
     if (activePlayers.length === 2 || (currentRound === numberOfRounds && cutToTop === 0))  $('#createNewRound').text('End Tournament');
     bestOf = $('#bestOfNumber').val();
+    let saveJson = saveEvent();
+    window.localStorage.setItem("event", JSON.stringify(saveJson));
   }
 });
 

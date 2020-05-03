@@ -1,5 +1,5 @@
-# swiss-sk (v0.2 beta1)
-An online scorekeeping application for tournaments with Swiss pairings. It is written in JavaScript and runs client-side. **This is currently an ALPHA build - please report all bugs!**
+# swiss-sk (v0.2 beta2)
+An online scorekeeping application for tournaments with Swiss pairings. It is written in JavaScript and runs client-side. **This is currently an BETA build - please report all bugs!**
 
 ## Table of Contents
 - [Features](#Features)
@@ -50,9 +50,9 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 - ~~Edit matches after pairings~~ **implemented in alpha4**
 - ~~Add players late during round one~~ **implemented in alpha4**
 - ~~Delete round button~~ **implemented in alpha5**
+- ~~Import players as a .csv~~ **implemented in beta2**
 - Print match result slips
 - Custom player ID
-- Import players as a .csv
 
 ## Starting a Tournament
 
@@ -62,32 +62,7 @@ Upon loading, the "Tournament Info" accordion will be open. Here you can decide 
 ### Players
 Players can be entered using just the keyboard (no mouse) by pressing enter (if two names, pressing enter will move from first name to last name). Player IDs increment from 1 for each player entered; if a player drops, that player's ID will not be reused. If a player is clicked on in the table, a player card dialog appears with the player's name, ID, and amount of match points. In this dialog, players can be dropped or re-added, and their names can be changed. Players can be added during the first round, but they must be paired (or assigned a bye or loss).
 
-The players table can be sorted by ID or name and filtered by ID, name, or active status (using the toggle button). When printing players, it prints what is currently shown on the table (including filters). Players can be imported and exported in readable .json files.
-
-```JSON
-[
- {
-  "alias": "Braddock, Matt",
-  "playerID": 1,
-  "matchPts": 3,
-  "matches": 1,
-  "gamePts": 6,
-  "games": 2,
-  "byes": 0,
-  "opponents": [
-    5
-  ],
-  "active": true,
-  "matchWinPct": 100,
-  "gameWinPct": 100,
-  "oppMatchWinPct": 33,
-  "oppGameWinPct": 33,
-  "paired": false,
-  "dropRound": null
- }
-]
-```
-Data (such as points and tiebreakers) is stored in the exported file, but erased when importing; new players are created using the alias field. Thus, a bare minimum .json file to import would be objects with just an alias field and a name included.
+The players table can be sorted by ID or name and filtered by ID, name, or active status (using the toggle button). When printing players, it prints what is currently shown on the table (including filters). Players can be imported and exported in .csv files. Data (such as points and tiebreakers) is stored in the exported file, but erased when importing; new players are created using the alias field. Thus, an imported .csv file only needs an `alias` field, and the name included.
 
 ## Running a Tournament
 

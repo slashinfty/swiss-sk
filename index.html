@@ -18,9 +18,10 @@
     <script src="js/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
     <script src="js/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="js/tabulator-master/dist/js/tabulator.min.js"></script>
+    <script src="js/PapaParse-5.0.2/papaparse.min.js"></script>
   </head>
   <body>
-    <div id="tag"><img src="img/header.png" style="padding-top: 25px;">v0.2 (beta1) | <a href="https://github.com/slashinfty/swiss-sk/blob/master/README.md" target="_blank">how to</a> | <a href="https://github.com/slashinfty/swiss-sk" target="_blank">source code</a> | <a href="https://github.com/slashinfty/swiss-sk/issues/new" target="_blank">report an issue</a></div>
+    <div id="tag"><img src="img/header.png" style="padding-top: 25px;">v0.2 (beta2) | <a href="https://github.com/slashinfty/swiss-sk/blob/master/README.md" target="_blank">how to</a> | <a href="https://github.com/slashinfty/swiss-sk" target="_blank">source code</a> | <a href="https://github.com/slashinfty/swiss-sk/issues/new" target="_blank">report an issue</a></div>
     <p id="subtitle">A scorekeeping tool for tournaments with Swiss pairings</p>
     <div id="tourney-info">
       <h3>Tournament Info</h3>
@@ -93,7 +94,7 @@
             <input type="checkbox" id="filterDroppedPlayers"></div>
             </div>
             <div id="players-table"></div>
-            <p class="alignr"><input type="file" id="importPlayersFile" accept=".json" /><button id="importPlayers">Import Players</button>&nbsp;<button id="exportPlayers" disabled>Export Players</button>&nbsp;<button id="printPlayers" disabled>Print Players</button></p>
+            <p class="alignr"><input type="file" id="importPlayersFile" accept=".csv" /><button id="importPlayers">Import Players</button>&nbsp;<button id="exportPlayers" disabled>Export Players</button>&nbsp;<button id="printPlayers" disabled>Print Players</button></p>
           </div>
         </div>
         <div id="pairings-tab">
