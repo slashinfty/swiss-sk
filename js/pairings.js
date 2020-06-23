@@ -107,7 +107,7 @@ $('#filterActivePairings').change(function() {
 
 //export pairings button
 $('#exportPairings').click(() => {
-  const currentPairings = pairings.find(obj => obj.round === pairings.length).pairings
+  const currentPairings = pairings.find(obj => obj.round === $('#displayedRound').val()).pairings
   const unparseConfig = {
     columns: ['active', 'matchNumber', 'playerOne', 'playerOneName', 'playerTwo', 'playerTwoName', 'playerOneWins', 'playerTwoWins', 'draws', 'playerOneDrop', 'playerTwoDrop']
   }
