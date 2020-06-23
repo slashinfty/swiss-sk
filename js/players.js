@@ -157,7 +157,6 @@ $('#printPlayers').click(function() {
 
 //export players as json
 $('#exportPlayers').click(function() {
-  //saveAs(new Blob([JSON.stringify(players, null, '\t')], {type: "text/plain;charset=utf-8"}), "players.json");
   saveAs(new Blob([Papa.unparse(players)], {type: "text/plain;charset=utf-8"}), "players.csv");
 });
 

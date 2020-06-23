@@ -1,4 +1,4 @@
-# swiss-sk (v0.2 beta2)
+# swiss-sk (v1.0)
 An online scorekeeping application for tournaments with Swiss pairings. It is written in JavaScript and runs client-side. **This is currently an BETA build - please report all bugs!**
 
 ## Table of Contents
@@ -18,10 +18,10 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 
 ### Current
 - Create tournaments with a custom name
-- Export and import tournaments (in readable .json format)
+- Export and import tournaments as .json
 - **New** Tournament saves in localStorage at every round creation (in case tabs are accidentally closed)
 - Input player names as either an alias or first and last name
-- Export and import players (in readable .json format)
+- Export and import players as .csv
 - Print a list of players
 - Sort players by ID or name, and filter by ID or name
 - Toggle players by active/all
@@ -31,6 +31,7 @@ An online scorekeeping application for tournaments with Swiss pairings. It is wr
 - Change the starting match number (can change each round)
 - Drop/undrop players or change their name by clicking on them in players tab
 - Can add players during first round
+- Export pairings as .csv
 - Print pairings by match number or name
 - Filter pairings by match number or name
 - Toggle matches by active/all
@@ -67,7 +68,7 @@ The players table can be sorted by ID or name and filtered by ID, name, or activ
 ## Running a Tournament
 
 ### Pairings
-In round one, players are randomly paired. In subsequent rounds, players are paired by the Swiss pairing algorithm (designed to be fast, not perfect). The exception is the final Swiss round, which is paired by standings. Pairings can be filtered by name or active status (using the toggle button). Printing pairings launches a dialog to select printing by match number or by name. If printing by match number, it prints what is currently shown on the table (if set to active matches only shown, you get a printout of outstanding matches).
+In round one, players are randomly paired. In subsequent rounds, players are paired by the Swiss pairing algorithm (designed to be fast, not perfect). The exception is the final Swiss round, which is paired by standings. Pairings can be filtered by name or active status (using the toggle button). Pairings can be exported as a .csv file. Printing pairings launches a dialog to select printing by match number or by name. If printing by match number, it prints what is currently shown on the table (if set to active matches only shown, you get a printout of outstanding matches).
 
 Active matches can be edited during a round. This includes assigning byes and losses to players. Entire rounds can be deleted.
 

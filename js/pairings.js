@@ -12,7 +12,6 @@ class Match {
     this.playerTwoDrop = false;
     this.playerOneName = pOneName; //placeholder
     this.playerTwoName = pTwoName; //placeholder
-    this.result = false; //placeholder
   }
 }
 
@@ -104,6 +103,15 @@ $('#filterActivePairings').change(function() {
   }
   let updateLabel = $('#filterActivePairings').prop('checked') ? 'Only Active' : 'All Matches';
   $('label[for="filterActivePairings"]').text(updateLabel);
+});
+
+//export pairings button
+$('#exportPairings').click(() => {
+  const currentPairings = pairings.find(obj => obj.round === pairings.length).pairings
+  const unparseConfig = {
+    columns: ['active', 'matchNumber', 'playerOne', 'playerOneName', 'playerTwo', 'playerTwoName', 'playerOneWins', 'playerTwoWins', 'draws', 'playerOneDrop', 'playerTwoDrop']
+  }
+  saveAs(new Blob([Papa.unparse(currentPairings, unparseConfig)], {type: "text/plain;charset=utf-8"}), "pairings.csv");
 });
 
 //load match by match number
